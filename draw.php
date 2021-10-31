@@ -1,10 +1,12 @@
 
-  <div class="svg-container"></div>
+  <div class="svg-container">
+  <svg height="100%" width="100%"></svg>
+  </div>
 
     <div class="tets col-sm-4" id="parent">
         parenttt
     </div>
-    <div class="tets col-sm-4" style="margin-top:60px;">
+    <div class="tets col-sm-4 child2" style="margin-top:60px;">
         hiiii
     </div>
     <div class="tets child col-sm-4" style="margin-top:60px;">
@@ -37,6 +39,7 @@
       ]
     }
     connect($('#parent'),$('.child'),options);
+    connect($('#parent'),$('.child2'),options);
 
   });
   
@@ -49,8 +52,7 @@
     let y1=from_elem.position().top+(from_elem.outerHeight(true)-(from_elem.innerHeight()/2));
     let y2=to_elem.position().top+(to_elem.outerHeight(true)-(to_elem.innerHeight()/2));
     
-    let html=`<svg height="100%" width="100%">
-    <line x1="${x1-10}" y1="${y1}" x2="${x1+10}" y2="${y1}" style="stroke:${options.color || 'rgb(255,0,0)'};stroke-width:2" />
+    let html=`<line x1="${x1-10}" y1="${y1}" x2="${x1+10}" y2="${y1}" style="stroke:${options.color || 'rgb(255,0,0)'};stroke-width:2" />
       <line x1="${x1+10}" y1="${y1}" x2="${x2+10}" y2="${y2}" style="stroke:${options.color || 'rgb(255,0,0)'};stroke-width:2" />
       <line x1="${x2-10}" y1="${y2}" x2="${x2+10}" y2="${y2}" style="stroke:${options.color || 'rgb(255,0,0)'};stroke-width:2" marker-end="url(#arrow_left)"/>
       <defs>
@@ -62,11 +64,10 @@
     </marker>
       <polygon points="12 0, 10 7, 0 4" fill="${options.color || 'rgb(255,0,0)'}" />
     </marker>
-  </defs>   
-      Sorry, your browser does not support inline SVG.
-    </svg>`;
-  
-          $('.svg-container').html(html);
+  </defs>`;
+    
+          $('.svg-container svg').append(html);
+          $('.svg-container svg').html($('.svg-container svg').html());
           if(options?.inner_texts){
             let svg=$('.svg-container').find("svg")[0];
             let default_text_y=20;
